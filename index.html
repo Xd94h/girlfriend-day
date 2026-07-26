@@ -310,6 +310,82 @@
     color:var(--plum);
   }
 
+  /* ============ STAY-WITH-ME CAROUSEL ============ */
+  .stay-carousel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:1.4rem;
+  }
+  .stay-box{
+    position:relative;
+    width:min(320px,78vw);
+    aspect-ratio:1/1;
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--blush);
+    box-shadow:0 22px 46px rgba(181,50,90,.22);
+    clip-path:polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+  }
+  .stay-box::after{
+    content:'';
+    position:absolute;
+    top:0;right:0;
+    width:0;height:0;
+    border-style:solid;
+    border-width:40px 40px 0 0;
+    border-color:#ffe3ea transparent transparent transparent;
+    filter:drop-shadow(-3px 3px 4px rgba(181,50,90,.35));
+    z-index:6;
+  }
+  .stay-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .5s ease;
+  }
+  .stay-slide.active{opacity:1;visibility:visible;}
+  .stay-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .stay-slide .photo-placeholder{position:absolute;inset:0;}
+
+  .stay-arrow{
+    width:46px;height:46px;
+    border-radius:50%;
+    border:none;
+    background:var(--paper);
+    color:var(--rose-deep);
+    font-size:1.4rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(181,50,90,.18);
+    transition:transform .2s ease, background .2s ease;
+    flex-shrink:0;
+  }
+  .stay-arrow:hover{background:var(--rose);color:#fff;transform:scale(1.08);}
+
+  .stay-dots{
+    display:flex;
+    justify-content:center;
+    gap:.5rem;
+    margin-top:1.4rem;
+  }
+  .stay-dots .dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:#f0b6c6;
+    cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .stay-dots .dot.active{background:var(--rose-deep);transform:scale(1.3);}
+
+  @media(max-width:520px){
+    .stay-arrow{width:38px;height:38px;font-size:1.1rem;}
+    .stay-carousel{gap:.7rem;}
+  }
+
   /* ============ REASONS LIST ============ */
   .reasons{
     max-width:640px;
@@ -504,6 +580,53 @@ I love you, aaj bhi, hamesha bhi. 🌸</div>
   </div>
 </section>
 
+<!-- ================= STAY WITH ME CAROUSEL ================= -->
+<section id="stay-section">
+  <div class="section-head">
+    <div class="eyebrow">Ek Aur Chhoti Si Jhalak</div>
+    <h2>Things You'll Get If U Stay With Me</h2>
+    <p>Arrows daba ke slide karo aur dekho ❤️</p>
+  </div>
+
+  <!-- ============================================================
+       ZYADA IMAGES ADD KARNI HO TO:
+       Neeche jaisa ek "stay-slide" div hai, waisa hi ek naya div
+       copy-paste kar do aur uske img src mein agla number daal do
+       (jaise "PASTE LINK HERE 12"). JS khud-ba-khud usko carousel
+       mein include kar lega, kuch aur change karne ki zaroorat nahi.
+  ============================================================= -->
+  <div class="stay-carousel">
+    <button class="stay-arrow" onclick="stayPrev()">&#8249;</button>
+
+    <div class="stay-box" id="stayBox">
+      <div class="stay-slide">
+        <img src="PASTE LINK HERE 7" alt="Slide 1" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="PASTE LINK HERE 8" alt="Slide 2" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="PASTE LINK HERE 9" alt="Slide 3" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="PASTE LINK HERE 10" alt="Slide 4" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="PASTE LINK HERE 11" alt="Slide 5" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+    </div>
+
+    <button class="stay-arrow" onclick="stayNext()">&#8250;</button>
+  </div>
+
+  <div class="stay-dots" id="stayDots"></div>
+</section>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="script">Happy Girlfriend's Day, meri jaan 🌸</div>
@@ -543,6 +666,30 @@ I love you, aaj bhi, hamesha bhi. 🌸</div>
   }
   updateCountdown();
   setInterval(updateCountdown,1000);
+
+  // stay-with-me carousel
+  const staySlides = document.querySelectorAll('.stay-slide');
+  const stayDotsWrap = document.getElementById('stayDots');
+  let stayIndex = 0;
+
+  staySlides.forEach((s,i)=>{
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i===0?' active':'');
+    dot.onclick = ()=> stayGoTo(i);
+    stayDotsWrap.appendChild(dot);
+  });
+
+  function stayRender(){
+    staySlides.forEach((s,i)=> s.classList.toggle('active', i===stayIndex));
+    document.querySelectorAll('.stay-dots .dot').forEach((d,i)=> d.classList.toggle('active', i===stayIndex));
+  }
+  function stayGoTo(i){
+    stayIndex = (i + staySlides.length) % staySlides.length;
+    stayRender();
+  }
+  function stayNext(){ stayGoTo(stayIndex+1); }
+  function stayPrev(){ stayGoTo(stayIndex-1); }
+  if(staySlides.length){ stayRender(); }
 
   // envelope open -> reveal letter
   function openEnvelope(){
