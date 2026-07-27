@@ -286,9 +286,13 @@
     background:var(--blush);
     overflow:hidden;
     position:relative;
+    transition:aspect-ratio .3s ease;
+  }
+  .photo-frame.has-image{
+    aspect-ratio:auto;
   }
   .photo-frame img{
-    width:100%;height:100%;object-fit:cover;display:block;
+    width:100%;height:auto;display:block;object-fit:contain;
   }
   .photo-placeholder{
     position:absolute;inset:0;
@@ -326,6 +330,7 @@
     background:var(--blush);
     box-shadow:0 22px 46px rgba(181,50,90,.22);
     clip-path:polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+    transition:height .4s ease;
   }
   .stay-box::after{
     content:'';
@@ -346,7 +351,7 @@
     transition:opacity .5s ease;
   }
   .stay-slide.active{opacity:1;visibility:visible;}
-  .stay-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .stay-slide img{width:100%;height:100%;object-fit:contain;display:block;}
   .stay-slide .photo-placeholder{position:absolute;inset:0;}
 
   .stay-arrow{
@@ -529,7 +534,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://cdn.phototourl.com/member/2026-07-27-b4302095-d951-490a-a776-24d385256d6c.jpg" alt="Memory 1" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/VUMTE3AMLLzg3ELNtDCq/image.jpg" alt="Memory 1" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">first time hum mile 🌷</div>
@@ -538,7 +543,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/Fj1dI9WXwIS4lM7CVzwO/image.jpg" alt="Memory 2" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/Fj1dI9WXwIS4lM7CVzwO/image.jpg" alt="Memory 2" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">first date 💕</div>
@@ -547,7 +552,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/qYQjCGhbVwxBfiYLYnNm/image.jpg" alt="Memory 3" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/qYQjCGhbVwxBfiYLYnNm/image.jpg" alt="Memory 3" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">wo random trip 🚗</div>
@@ -556,7 +561,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/D52WZlb1cZWdsjuEYsZt/image.jpg" alt="Memory 4" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/D52WZlb1cZWdsjuEYsZt/image.jpg" alt="Memory 4" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">tumhari favourite smile 😊</div>
@@ -565,7 +570,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/pUAysQmQDcInKQSn1CVM/image.jpg" alt="Memory 5" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/pUAysQmQDcInKQSn1CVM/image.jpg" alt="Memory 5" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">us shaam ka sunset 🌅</div>
@@ -574,7 +579,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
     <div class="polaroid">
       <div class="tape"></div>
       <div class="photo-frame">
-        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/dITN7OEWqIfFt0q7j9y7/image.jpg" alt="Memory 6" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="https://plain-apac-prod-public.komododecks.com/202607/27/dITN7OEWqIfFt0q7j9y7/image.jpg" alt="Memory 6" onload="this.parentElement.classList.add('has-image');" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image');">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="cap">hum dono ❤️</div>
@@ -618,23 +623,23 @@ I lobee uh so muchh mera babyy. 🌸</div>
 
     <div class="stay-box" id="stayBox">
       <div class="stay-slide">
-        <img src="PASTE LINK HERE 7" alt="Slide 1" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="PASTE LINK HERE 7" alt="Slide 1" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="stay-slide">
-        <img src="PASTE LINK HERE 8" alt="Slide 2" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="PASTE LINK HERE 8" alt="Slide 2" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="stay-slide">
-        <img src="PASTE LINK HERE 9" alt="Slide 3" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="PASTE LINK HERE 9" alt="Slide 3" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="stay-slide">
-        <img src="PASTE LINK HERE 10" alt="Slide 4" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="PASTE LINK HERE 10" alt="Slide 4" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
       <div class="stay-slide">
-        <img src="PASTE LINK HERE 11" alt="Slide 5" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="PASTE LINK HERE 11" alt="Slide 5" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
     </div>
@@ -700,6 +705,7 @@ I lobee uh so muchh mera babyy. 🌸</div>
   function stayRender(){
     staySlides.forEach((s,i)=> s.classList.toggle('active', i===stayIndex));
     document.querySelectorAll('.stay-dots .dot').forEach((d,i)=> d.classList.toggle('active', i===stayIndex));
+    updateStayBoxHeight();
   }
   function stayGoTo(i){
     stayIndex = (i + staySlides.length) % staySlides.length;
@@ -707,6 +713,21 @@ I lobee uh so muchh mera babyy. 🌸</div>
   }
   function stayNext(){ stayGoTo(stayIndex+1); }
   function stayPrev(){ stayGoTo(stayIndex-1); }
+
+  function updateStayBoxHeight(){
+    const box = document.getElementById('stayBox');
+    if(!box || !staySlides.length) return;
+    const activeSlide = staySlides[stayIndex];
+    const img = activeSlide.querySelector('img');
+    const width = box.clientWidth;
+    if(img && img.style.display !== 'none' && img.complete && img.naturalWidth){
+      const ratio = img.naturalWidth / img.naturalHeight;
+      box.style.height = (width / ratio) + 'px';
+    } else {
+      box.style.height = width + 'px';
+    }
+  }
+  window.addEventListener('resize', updateStayBoxHeight);
   if(staySlides.length){ stayRender(); }
 
   // envelope open -> reveal letter
