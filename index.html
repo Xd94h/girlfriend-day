@@ -353,6 +353,7 @@
   .stay-slide.active{opacity:1;visibility:visible;}
   .stay-slide img{width:100%;height:100%;object-fit:contain;display:block;}
   .stay-slide .photo-placeholder{position:absolute;inset:0;}
+  .stay-slide.has-image .photo-placeholder{display:none;}
 
   .stay-arrow{
     width:46px;height:46px;
@@ -636,6 +637,8 @@ I lobee uh so muchh mera babyy. 🌸</div>
          stay3.jpg   ->  slide 3
          stay4.jpg   ->  slide 4
          stay5.jpg   ->  slide 5
+         stay6.jpg   ->  slide 6
+         stay7.jpg   ->  slide 7
 
        ZYADA IMAGES ADD KARNI HO TO:
        Neeche jaisa ek "stay-slide" div hai, waisa hi ek naya div
@@ -666,6 +669,14 @@ I lobee uh so muchh mera babyy. 🌸</div>
       </div>
       <div class="stay-slide">
         <img src="stay5.jpg" alt="Slide 5" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="stay6.jpg" alt="Slide 6" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
+        <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
+      </div>
+      <div class="stay-slide">
+        <img src="stay7.jpg" alt="Slide 7" onload="this.parentElement.classList.add('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.classList.remove('has-image'); if(typeof updateStayBoxHeight==='function') updateStayBoxHeight();">
         <div class="photo-placeholder"><span class="icon">📷</span><span class="txt">Photo yahan aayegi</span></div>
       </div>
     </div>
