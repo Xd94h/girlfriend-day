@@ -152,7 +152,7 @@
     display:flex;
     justify-content:center;
     perspective:1400px;
-    margin-top:5rem;
+    margin-top:calc(5rem + 0.5in);
   }
   .envelope{
     width:min(320px,80vw);
@@ -204,20 +204,71 @@
     letter-spacing:.05em;
   }
 
-  .letter-paper{
-    max-width:600px;
-    margin:5rem auto 0;
-    background:var(--paper);
-    border-radius:6px;
-    padding:3rem 2.6rem;
-    box-shadow:0 30px 60px rgba(181,50,90,.15);
+  /* ============ LETTER MODAL ============ */
+  .letter-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    background:rgba(30,10,20,.45);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:1.2rem;
+  }
+  .letter-overlay.active{display:flex;}
+  .letter-modal-box{
     position:relative;
+    width:100%;
+    max-width:600px;
+    max-height:85vh;
+    display:flex;
+    flex-direction:column;
+    background:var(--paper);
+    border-radius:14px;
+    border:2px solid #ffc2d3;
+    box-shadow:0 0 0 6px rgba(255,194,211,.25),
+               0 30px 60px rgba(181,50,90,.35);
     opacity:0;
-    transform:translateY(30px);
-    transition:opacity .8s ease, transform .8s ease;
+    transform:scale(.92) translateY(20px);
+    transition:opacity .35s ease, transform .35s ease;
+    overflow:hidden;
+  }
+  .letter-overlay.active .letter-modal-box{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+  .letter-close{
+    position:absolute;
+    top:10px; right:10px;
+    width:36px;height:36px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    background:var(--rose-deep);
+    color:#fff;
+    font-size:1.3rem;
+    line-height:1;
+    z-index:3;
+    box-shadow:0 0 10px 2px rgba(255,194,211,.9),
+               0 0 20px 4px rgba(255,194,211,.5),
+               0 6px 14px rgba(58,20,40,.4);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .letter-close:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 14px 3px rgba(255,194,211,1),
+               0 0 26px 6px rgba(255,194,211,.65),
+               0 6px 14px rgba(58,20,40,.4);
+  }
+  .letter-paper{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:3rem 2.6rem;
     border-top:6px solid var(--rose);
   }
-  .letter-paper.show{opacity:1;transform:translateY(0);}
   .letter-paper .to-line{
     font-family:'Caveat',cursive;
     font-size:1.7rem;
@@ -515,6 +566,83 @@
     .stay-carousel{gap:.7rem;}
   }
 
+  /* ============ VOICE NOTE ============ */
+  .vn-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin:2.4rem auto 0;
+    max-width:420px;
+    padding:0 1.2rem;
+  }
+  .voice-note{
+    display:flex;
+    align-items:center;
+    gap:.9rem;
+    width:100%;
+    background:var(--paper);
+    border-radius:40px;
+    padding:.7rem .9rem .7rem .7rem;
+    box-shadow:0 10px 26px rgba(181,50,90,.15);
+    border:1px solid rgba(232,84,124,.15);
+    cursor:pointer;
+    user-select:none;
+  }
+  .vn-play{
+    flex-shrink:0;
+    width:46px;height:46px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    background:radial-gradient(circle at 35% 30%, #f37b9a, var(--rose-deep));
+    color:#fff;
+    font-size:1.05rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 14px rgba(181,50,90,.4);
+  }
+  .vn-play .icon-pause{display:none;}
+  .voice-note.playing .vn-play .icon-play{display:none;}
+  .voice-note.playing .vn-play .icon-pause{display:inline;}
+  .vn-wave{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:3px;
+    height:28px;
+    overflow:hidden;
+  }
+  .vn-wave span{
+    display:block;
+    width:3px;
+    border-radius:2px;
+    background:var(--rose);
+    opacity:.55;
+  }
+  .voice-note.playing .vn-wave span{
+    opacity:.9;
+    animation:vnBounce 1s ease-in-out infinite;
+  }
+  @keyframes vnBounce{
+    0%,100%{transform:scaleY(.5);}
+    50%{transform:scaleY(1);}
+  }
+  .vn-label{
+    flex-shrink:0;
+    font-size:.72rem;
+    color:#a37387;
+    letter-spacing:.03em;
+  }
+  .vn-caption{
+    margin-top:.9rem;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--rose-deep);
+    text-align:center;
+  }
+
   /* ============ REASONS LIST ============ */
   .reasons{
     max-width:640px;
@@ -615,36 +743,8 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       LETTER EDIT KARNE KE LIYE:
-       Neeche "to-line", "body-text" (id="letter-body") aur "sign-off"
-       waali lines me apna khud ka letter likh do. Jitna chaho utna
-       likh sakte ho, line break ke liye bas Enter daal do.
-  ============================================================= -->
-  <div class="letter-paper" id="letter-paper">
-    <div class="to-line">Meri Pyaari Rasmalai,</div>
-    <div class="body-text" id="letter-body">Happy Girlfriend's Day ❤️
-
-Jabse tum meri zindagi mein aayi ho mai boht badal gaya hu, better hogaya hu, tum meri gf kam aur meri mummy jyada ho, and mai tumhara baby,
-
-Aaj ka din sirf tumhare liye hai, tum jo maangogi tumko aaj miljayega , ik baby i did a lot of mistake's itne ki abb i don;t even expect ki tum maaf karo , but sonakshi it;s very important to understand each other ik i say a lot of shit in anger, but baby i don;t do on purpose and mai gussa karta hu toh iska mtlb ye thodi hai ki i don;t lobe you  ❤️
-
-Ik You'r very sensitive baby , i get it , i promise mai abb se dhyaan rakhuga , and tumko mujhe maaf nahi karna mat karo, it;s fine , but i'll js try to give uh the love uh deserve, and tum jitna chahe utna time le sakti ho , no adult stuff i promise
-
-
-Baby i js want to say ki, hame hamesha ke liye saath rehna hai, we will fix everything aise breakup karna isn't gud na baby, ik i hurt uh i deserve all ts shit jo bhi hora hai mere saath
-
-baby jhagde aaj hote hai kal bhi hoge, but i want a promise from you ki tum kabhi bhi mujhe chhod ke nahi jaogi
-
-Please pehle wali sonakshi mujhe wapis kardo jo jhagde karti thi lekin chhodke nahi jati thi, 
-      
-Thank you so much for coming in my life, i'm so greatfull to have a gf like you,, thankyou so much for mujhe samajhne ke liye, aur mujhse itna pyaar karne ke liye. 
-      
-Main promise karta hu, har din tumhe yeh feel karwaunga ki tum kitni special ho.
-
-I lobee uh so muchh mera babyy. 🌸</div>
-    <div class="sign-off">Yours, <br>Shivu</div>
-  </div>
+  <!-- Letter modal markup lives at the end of <body> now — see near </body> —
+       so it can render as a true full-screen overlay above every section. -->
 </section>
 
 <!-- ================= GALLERY ================= -->
@@ -818,6 +918,49 @@ I lobee uh so muchh mera babyy. 🌸</div>
     </button>
     <span class="cert-dash"></span>
   </div>
+
+  <!-- =============================================================
+       VOICE NOTE:
+       Repo mein (photo1.jpg, certificate.jpg jaise hi jagah) ek
+       audio file daal do naam se "voicenote1.mp3" (ya "voicenote1.ogg"
+       — dono chalega, .mp3 na mile to woh automatically .ogg try
+       karega). Play button dabane par wahi audio bajega.
+
+       Caption change karne ke liye "vn-caption" wali line mein
+       apna text likh do.
+  ============================================================= -->
+  <div class="vn-wrap">
+    <div class="voice-note" id="voiceNote1" onclick="toggleVoiceNote('voiceNote1','vnAudio1')">
+      <button class="vn-play" type="button" tabindex="-1">
+        <span class="icon-play">&#9654;</span>
+        <span class="icon-pause">&#10073;&#10073;</span>
+      </button>
+      <div class="vn-wave">
+        <span style="height:40%"></span>
+        <span style="height:70%"></span>
+        <span style="height:100%"></span>
+        <span style="height:55%"></span>
+        <span style="height:85%"></span>
+        <span style="height:35%"></span>
+        <span style="height:65%"></span>
+        <span style="height:95%"></span>
+        <span style="height:50%"></span>
+        <span style="height:75%"></span>
+        <span style="height:45%"></span>
+        <span style="height:90%"></span>
+        <span style="height:60%"></span>
+        <span style="height:40%"></span>
+        <span style="height:80%"></span>
+        <span style="height:55%"></span>
+      </div>
+      <span class="vn-label">voice note</span>
+    </div>
+    <div class="vn-caption">context yahan likho</div>
+    <audio id="vnAudio1" preload="none">
+      <source src="voicenote1.mp3" type="audio/mpeg">
+      <source src="voicenote1.ogg" type="audio/ogg">
+    </audio>
+  </div>
 </section>
 
 <!-- =============================================================
@@ -843,6 +986,47 @@ I lobee uh so muchh mera babyy. 🌸</div>
   <div class="script">Happy Girlfriend's Day, meri jaan 🌸</div>
   <div class="small">© OXD94H · 1 August</div>
 </footer>
+
+<!-- ============================================================
+     LETTER MODAL:
+     Yeh <body> ka direct child hai (kisi <section> ke andar nahi),
+     isliye yeh sach me poori site ke upar fixed full-screen overlay
+     ki tarah render hota hai, blur + dim background ke saath.
+
+     LETTER EDIT KARNE KE LIYE:
+     Neeche "to-line", "body-text" (id="letter-body") aur "sign-off"
+     waali lines me apna khud ka letter likh do. Jitna chaho utna
+     likh sakte ho, line break ke liye bas Enter daal do.
+============================================================= -->
+<div class="letter-overlay" id="letterOverlay" onclick="if(event.target===this) closeLetter()">
+  <div class="letter-modal-box">
+    <button class="letter-close" onclick="closeLetter()">&times;</button>
+    <div class="letter-paper" id="letter-paper">
+      <div class="to-line">Meri Pyaari Rasmalai,</div>
+      <div class="body-text" id="letter-body">Happy Girlfriend's Day ❤️
+
+Jabse tum meri zindagi mein aayi ho mai boht badal gaya hu, better hogaya hu, tum meri gf kam aur meri mummy jyada ho, and mai tumhara baby,
+
+Aaj ka din sirf tumhare liye hai, tum jo maangogi tumko aaj miljayega , ik baby i did a lot of mistake's itne ki abb i don;t even expect ki tum maaf karo , but sonakshi it;s very important to understand each other ik i say a lot of shit in anger, but baby i don;t do on purpose and mai gussa karta hu toh iska mtlb ye thodi hai ki i don;t lobe you  ❤️
+
+Ik You'r very sensitive baby , i get it , i promise mai abb se dhyaan rakhuga , and tumko mujhe maaf nahi karna mat karo, it;s fine , but i'll js try to give uh the love uh deserve, and tum jitna chahe utna time le sakti ho , no adult stuff i promise
+
+
+Baby i js want to say ki, hame hamesha ke liye saath rehna hai, we will fix everything aise breakup karna isn't gud na baby, ik i hurt uh i deserve all ts shit jo bhi hora hai mere saath
+
+baby jhagde aaj hote hai kal bhi hoge, but i want a promise from you ki tum kabhi bhi mujhe chhod ke nahi jaogi
+
+Please pehle wali sonakshi mujhe wapis kardo jo jhagde karti thi lekin chhodke nahi jati thi, 
+      
+Thank you so much for coming in my life, i'm so greatfull to have a gf like you,, thankyou so much for mujhe samajhne ke liye, aur mujhse itna pyaar karne ke liye. 
+      
+Main promise karta hu, har din tumhe yeh feel karwaunga ki tum kitni special ho.
+
+I lobee uh so muchh mera babyy. 🌸</div>
+      <div class="sign-off">Yours, <br>Shivu</div>
+    </div>
+  </div>
+</div>
 
 <script>
   // certificate modal
@@ -926,13 +1110,42 @@ I lobee uh so muchh mera babyy. 🌸</div>
   window.addEventListener('resize', updateStayBoxHeight);
   if(staySlides.length){ stayRender(); }
 
-  // envelope open -> reveal letter
+  // voice note play / pause
+  function toggleVoiceNote(boxId, audioId){
+    const box = document.getElementById(boxId);
+    const audio = document.getElementById(audioId);
+    if(!box || !audio) return;
+    if(audio.paused){
+      audio.play().then(()=>{
+        box.classList.add('playing');
+      }).catch(()=>{
+        // koi audio file abhi upload nahi hui, kuch nahi bajega for now
+      });
+    } else {
+      audio.pause();
+    }
+  }
+  document.querySelectorAll('.voice-note').forEach(box=>{
+    const a = box.parentElement.querySelector('audio');
+    if(a){
+      a.addEventListener('ended', ()=> box.classList.remove('playing'));
+      a.addEventListener('pause', ()=> box.classList.remove('playing'));
+    }
+  });
+
+  // envelope open -> reveal letter as a blurred modal
   function openEnvelope(){
     const env = document.getElementById('envelope');
     env.classList.add('open');
     setTimeout(()=>{
-      document.getElementById('letter-paper').classList.add('show');
+      document.getElementById('letterOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }, 500);
+  }
+  function closeLetter(){
+    document.getElementById('letterOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('envelope').classList.remove('open');
   }
 </script>
 
