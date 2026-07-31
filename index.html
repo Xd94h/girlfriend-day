@@ -561,6 +561,184 @@
     box-shadow:0 6px 14px rgba(58,20,40,.4);
   }
 
+  /* ============ CERTIFICATE CONFIRM (CHECKLIST) MODAL ============ */
+  .cert-confirm-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    background:rgba(30,10,20,.6);
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+    padding:1.2rem;
+  }
+  .cert-confirm-overlay.active{display:flex;}
+  .cert-confirm-box{
+    position:relative;
+    width:100%;
+    max-width:440px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:var(--rose-deep);
+    border-radius:34px;
+    padding:22px;
+    box-shadow:0 0 30px rgba(244,105,154,.5),
+               0 20px 45px rgba(58,20,40,.4);
+    animation:certPop .35s ease;
+  }
+  .cert-confirm-close{
+    position:absolute;
+    top:14px; right:18px;
+    width:34px;height:34px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    background:rgba(255,255,255,.18);
+    color:#fff;
+    font-size:1.2rem;
+    line-height:1;
+    z-index:5;
+  }
+  .cc-inner{
+    background:var(--paper);
+    border-radius:24px;
+    padding:1.8rem 1.5rem 1.5rem;
+  }
+  .cc-title{
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem;
+    color:var(--plum);
+    line-height:1.25;
+    text-align:center;
+  }
+  .cc-sub{
+    font-family:'Caveat',cursive;
+    font-size:1.2rem;
+    color:var(--rose);
+    text-align:center;
+    margin-top:.2rem;
+    margin-bottom:1.3rem;
+  }
+  .cc-intro{
+    font-size:.9rem;
+    color:#7a5566;
+    line-height:1.5;
+    margin-bottom:1.1rem;
+  }
+  .cc-intro .cc-name{
+    color:var(--plum);
+    font-weight:600;
+  }
+  .cc-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .cc-item{
+    display:flex;
+    align-items:flex-start;
+    gap:.8rem;
+    padding:.75rem 0;
+    border-bottom:1px dashed rgba(232,84,124,.3);
+    cursor:pointer;
+    user-select:none;
+    transition:opacity .2s ease;
+  }
+  .cc-item:active{opacity:.7;}
+  .cc-item:last-child{border-bottom:none;}
+  .cc-check{
+    flex:0 0 auto;
+    width:24px;height:24px;
+    border-radius:7px;
+    background:#fff;
+    border:2px solid rgba(232,84,124,.45);
+    color:transparent;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.85rem;
+    font-weight:700;
+    margin-top:.1rem;
+    transition:all .2s ease;
+  }
+  .cc-check.checked{
+    background:var(--blush);
+    border-color:var(--rose-deep);
+    color:var(--rose-deep);
+  }
+  .cc-check-final.checked{
+    background:#c8f0d4;
+    border-color:#1f8a4c;
+    color:#1f8a4c;
+  }
+  .cc-text{
+    font-size:.92rem;
+    color:var(--plum);
+    line-height:1.4;
+  }
+  .cc-final .cc-text{font-weight:600;}
+  .cc-terms{
+    display:flex;
+    justify-content:space-between;
+    margin-top:1rem;
+    padding-top:.9rem;
+    border-top:1px solid rgba(232,84,124,.25);
+    font-size:.8rem;
+    color:#a37387;
+  }
+  .cc-view-btn{
+    display:block;
+    width:100%;
+    margin-top:1.4rem;
+    border:2px solid #eee;
+    cursor:not-allowed;
+    padding:.95rem 1rem;
+    border-radius:50px;
+    background:#ffffff;
+    color:#161616;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    letter-spacing:.06em;
+    box-shadow:none;
+    opacity:.85;
+    transition:transform .25s ease, box-shadow .25s ease, background .3s ease, color .3s ease, border-color .3s ease, opacity .3s ease;
+  }
+  .cc-view-btn.cc-ready{
+    border-color:transparent;
+    cursor:pointer;
+    opacity:1;
+    background:linear-gradient(145deg,#ff9ebd,#f4699a);
+    color:#fff;
+    box-shadow:0 0 16px rgba(244,105,154,.65),
+               0 8px 18px rgba(181,50,90,.35);
+  }
+  .cc-view-btn.cc-ready:hover{transform:translateY(-2px);}
+  .cc-actions{
+    display:flex;
+    gap:.7rem;
+    margin-top:1rem;
+  }
+  .cc-back-btn, .cc-continue-btn{
+    flex:1;
+    border:1.5px solid rgba(255,255,255,.7);
+    background:transparent;
+    color:#fff;
+    border-radius:50px;
+    padding:.7rem .6rem;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:.8rem;
+    letter-spacing:.05em;
+    cursor:pointer;
+    transition:opacity .3s ease, background .3s ease;
+  }
+  .cc-back-btn:hover, .cc-continue-btn:hover{background:rgba(255,255,255,.12);}
+  .cc-continue-btn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+  }
+  .cc-continue-btn:disabled:hover{background:transparent;}
+
   @media(max-width:520px){
     .stay-arrow{width:38px;height:38px;font-size:1.1rem;}
     .stay-carousel{gap:.7rem;}
@@ -913,8 +1091,8 @@
 
   <div class="certificate-wrap">
     <span class="cert-dash"></span>
-    <button class="certificate-btn" type="button" onclick="openCertificate()">
-      <span class="cert-inner">Certificate</span>
+    <button class="certificate-btn" type="button" onclick="openCertConfirm()">
+      <span class="cert-inner">View Certificate</span>
     </button>
     <span class="cert-dash"></span>
   </div>
@@ -971,6 +1149,54 @@
      try ho jaata hai). Wahi image "Certificate" button dabane par
      is glowing pink box ke andar khulegi.
 ============================================================= -->
+<!-- =============================================================
+     CERTIFICATE CONFIRMATION (CHECKLIST) MODAL:
+     "View Certificate" button pehle isko kholta hai. Neeche
+     "cc-name" wali span mein naam badal sakte ho, aur checklist
+     ke items "cc-item" divs mein edit kar sakte ho.
+============================================================= -->
+<div class="cert-confirm-overlay" id="certConfirmOverlay" onclick="if(event.target===this) closeCertConfirm()">
+  <div class="cert-confirm-box">
+    <button class="cert-confirm-close" onclick="closeCertConfirm()">&times;</button>
+    <div class="cc-inner">
+      <div class="cc-title">Certificate of Official<br>Girlfriend-ness</div>
+      <div class="cc-sub script">read carefully, tick honestly</div>
+      <div class="cc-intro">By continuing, <span class="cc-name">Sonakshi</span> confirms the following is true:</div>
+      <div class="cc-list">
+        <div class="cc-item" onclick="toggleCheckItem(this)">
+          <span class="cc-check">&#10003;</span>
+          <span class="cc-text">Puts up with his jokes, every single time</span>
+        </div>
+        <div class="cc-item" onclick="toggleCheckItem(this)">
+          <span class="cc-check">&#10003;</span>
+          <span class="cc-text">Steals the blanket and somehow still gets the credit</span>
+        </div>
+        <div class="cc-item" onclick="toggleCheckItem(this)">
+          <span class="cc-check">&#10003;</span>
+          <span class="cc-text">Always right, even when she isn't — especially then</span>
+        </div>
+        <div class="cc-item" onclick="toggleCheckItem(this)">
+          <span class="cc-check">&#10003;</span>
+          <span class="cc-text">Makes an ordinary Tuesday feel like a good day</span>
+        </div>
+        <div class="cc-item cc-final" onclick="toggleCheckItem(this)">
+          <span class="cc-check cc-check-final">&#10003;</span>
+          <span class="cc-text">Officially agrees to stay his favorite person — no takebacks, no expiry</span>
+        </div>
+      </div>
+      <div class="cc-terms">
+        <span>Term: Forever</span>
+        <span>Notice period: None</span>
+      </div>
+    </div>
+    <button class="cc-view-btn" type="button" onclick="proceedToCertificate()" disabled>VIEW CERTIFICATE</button>
+    <div class="cc-actions">
+      <button class="cc-back-btn" type="button" onclick="closeCertConfirm()">&larr; BACK</button>
+      <button class="cc-continue-btn" type="button" onclick="proceedToCertificate()" disabled>CONTINUE &rarr;</button>
+    </div>
+  </div>
+</div>
+
 <div class="cert-overlay" id="certOverlay" onclick="if(event.target===this) closeCertificate()">
   <div class="cert-modal-box">
     <button class="cert-close" onclick="closeCertificate()">&times;</button>
@@ -1029,12 +1255,57 @@ I lobee uh so muchh mera babyy. 🌸</div>
 </div>
 
 <script>
-  // certificate modal
+  // certificate confirmation checklist modal
+  function openCertConfirm(){
+    resetCertConfirm();
+    document.getElementById('certConfirmOverlay').classList.add('active');
+  }
+  function closeCertConfirm(){
+    document.getElementById('certConfirmOverlay').classList.remove('active');
+  }
+  function resetCertConfirm(){
+    // har baar modal khulne par sab checkboxes wapas untick ho jaate hain
+    document.querySelectorAll('#certConfirmOverlay .cc-check').forEach(box=>{
+      box.classList.remove('checked');
+    });
+    updateCertReadyState();
+  }
+  function toggleCheckItem(item){
+    const box = item.querySelector('.cc-check');
+    if(box) box.classList.toggle('checked');
+    updateCertReadyState();
+  }
+  function updateCertReadyState(){
+    const boxes = document.querySelectorAll('#certConfirmOverlay .cc-check');
+    const checkedCount = document.querySelectorAll('#certConfirmOverlay .cc-check.checked').length;
+    const ready = boxes.length > 0 && checkedCount === boxes.length;
+    const viewBtn = document.querySelector('.cc-view-btn');
+    const contBtn = document.querySelector('.cc-continue-btn');
+    if(viewBtn){
+      viewBtn.classList.toggle('cc-ready', ready);
+      viewBtn.disabled = !ready;
+    }
+    if(contBtn){
+      contBtn.disabled = !ready;
+    }
+  }
+
+  // certificate image modal
   function openCertificate(){
     document.getElementById('certOverlay').classList.add('active');
   }
   function closeCertificate(){
     document.getElementById('certOverlay').classList.remove('active');
+  }
+  // clicking "VIEW CERTIFICATE" or "CONTINUE" inside the checklist ->
+  // only works once every box is ticked; then close checklist, open
+  // the actual certificate image
+  function proceedToCertificate(){
+    const boxes = document.querySelectorAll('#certConfirmOverlay .cc-check');
+    const checkedCount = document.querySelectorAll('#certConfirmOverlay .cc-check.checked').length;
+    if(checkedCount < boxes.length) return; // sab tick nahi hue, kuch nahi hoga
+    closeCertConfirm();
+    openCertificate();
   }
 
   // floating hearts background
